@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
 
-    $("body").click(start);
+    $("body").click(function() {
+        start();
+        return false;
+    });
     $("body").keypress(function(e) {
         if (e.keyCode === 13) start();
     });
