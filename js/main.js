@@ -12,7 +12,7 @@ $(document).ready(function() {
     $(".computer .text").typed({
             strings: ["Hello.", "Tap or press enter to continue."],
             typeSpeed: 10,
-            startDelay: 100,
+            startDelay: 200,
             backDelay: 600
         });
 });
