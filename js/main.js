@@ -1,19 +1,16 @@
+// $(".backgrounds")
+
+
+
 $(document).ready(function() {
 
-
-    $("body").click(function() {
-        start();
-        return false;
-    });
-    $("body").keypress(function(e) {
-        if (e.keyCode === 13) start();
-    });
-
+    $("#name").css("display", "inline-block");
     $(".computer .text").typed({
-            strings: ["Hello.", "Tap or press enter to continue."],
+            strings: ["Hello.", "To get started, may I have your name?"],
             typeSpeed: 10,
             startDelay: 100,
-            backDelay: 600
+            backDelay: 600,
+            callback: getName
         });
 });
 
@@ -33,23 +30,6 @@ function showInput(elem, next) {
     $("input").keypress(function(e) {
         if (e.keyCode === 13) next();
     });
-}
-
-function start() {
-    $("body").unbind("click");
-    $("body").unbind("keypress");
-    $(".computer").fadeOut(function() {
-        $("#name").css("display", "inline-block");
-        $(".computer").html("<span class='text'></span>");
-        $(".computer").css("display", "block");
-        $(".computer .text").typed({
-            strings: ["To get started, may I have your name?"],
-            typeSpeed: 10,
-            startDelay: 100,
-            backDelay: 600,
-            callback: getName
-        });
-    })
 }
 
 function getName() {

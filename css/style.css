@@ -1,4 +1,6 @@
 html,body { width:100%; height:100%; margin:0; overflow: hidden; }
+
+/*.backgrounds, .main { display: none; }*/
 .backgrounds > div {
     position: absolute;
     top: 0;
