@@ -13,10 +13,6 @@ html,body { width:100%; height:100%; margin:0; overflow: hidden; }
     background-image: url(../img/bg.png);
     z-index: 5;
 }
-.bg-blur {
-    background-image: url(../img/bg-blur.png);
-    z-index: 3;
-}
 .bg2 {
     background-image: url(../img/bg2.png);
     z-index: 1;
@@ -94,6 +90,10 @@ html,body { width:100%; height:100%; margin:0; overflow: hidden; }
     height: 40px;
     top: 0;
     opacity: 1;
+}
+.input#placeholder {
+    width: 0;
+    display: inline-block;
 }
 .input, .input input {
     font-size: 28px;

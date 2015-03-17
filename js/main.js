@@ -83,10 +83,8 @@ function takeBreak() {
     hideInput($("#email"));
     $(".computer").fadeOut(800);
 
-
-    $(".bg").fadeOut(800, function() {
+    $(".bg").fadeOut(1000, function() {
         $(".beacons-logo").fadeIn(1200);
-        $(".bg-blur").fadeOut(1400);
     });
 
 }
