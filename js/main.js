@@ -43,7 +43,7 @@ function start() {
         $(".computer").html("<span class='text'></span>");
         $(".computer").css("display", "block");
         $(".computer .text").typed({
-            strings: ["To get started, can I have your name?"],
+            strings: ["To get started, may I have your name?"],
             typeSpeed: 10,
             startDelay: 100,
             backDelay: 600,
