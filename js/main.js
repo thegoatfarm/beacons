@@ -73,7 +73,7 @@ function askEmail() {
         $(".computer").html("<span class='text'></span>");
         $(".computer").css("display", "block");
         $(".computer .text").typed({
-            strings: ["Thanks, " + name + ". Welcome to Beacons.", "Now, may I have your email?"],
+            strings: ["Thanks, " + name + "Welcome to Beacons.", "Now, may I have your email?"],
             typeSpeed: 10,
             startDelay: 100,
             backDelay: 750,
