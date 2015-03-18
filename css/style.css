@@ -152,16 +152,23 @@ input {
 
     .main {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: inherit;
-        max-width: 100%;
-        padding: 0 15px;
+        top: 15px;
+        right: 15px;
+        bottom: 15px;
+        left: 15px;
+        width: auto;
+        /*padding: 0 15px;*/
         background: rgba(235,233,229,0.4);
         transform: translateY(0);
-        padding-top: 30px;
+        /*padding-top: 30px;*/
+    }
+
+    .computer, .computer .text {
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        width: auto;
+        margin: auto;
+        max-width: 360px;
     }
 
     .input, .input input {
