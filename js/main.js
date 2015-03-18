@@ -26,7 +26,7 @@ function showPage() {
     $("#name").css("display", "inline-block");
     particles();
     $(".computer .text").typed({
-            strings: ["Hello.", "To get started, may I have your name?"],
+            strings: ["Hi.", "Let's get to know each other a bit, what's your name?"],
             typeSpeed: 7,
             startDelay: 300,
             backDelay: 600,
