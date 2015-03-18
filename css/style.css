@@ -165,6 +165,7 @@ input {
     }
 
     .input, .input input {
+        width: auto;
         max-width: 100%;
     }
 
