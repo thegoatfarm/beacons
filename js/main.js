@@ -44,6 +44,7 @@ $(document).ready(function() {
 
 function hideInput(elem) {
     $(elem).removeClass("transitions")
+    $(elem).blur();
     $(elem).fadeOut();
     $(".chevron").unbind("click");
     $("input").unbind("keypress");
