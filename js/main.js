@@ -27,8 +27,8 @@ function showPage() {
     particles();
     $(".computer .text").typed({
             strings: ["Hello.", "To get started, may I have your name?"],
-            typeSpeed: 10,
-            startDelay: 100,
+            typeSpeed: 7,
+            startDelay: 300,
             backDelay: 600,
             callback: getName
         });
