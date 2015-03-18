@@ -20,15 +20,9 @@ bgImg2.onload = function(){
 };
 
 function showPage() {
-  $(".backgrounds").fadeIn();
-  $(".main").fadeIn();
-}
-
-
-$(document).ready(function() {
-  bgImg.src = "img/bg.png";
-  bgImg2.src = "img/bg2.png";
-
+    $(".backgrounds").fadeIn();
+    $(".main").fadeIn();
+    $(".logo").fadeIn();
     $("#name").css("display", "inline-block");
     $(".computer .text").typed({
             strings: ["Hello.", "To get started, may I have your name?"],
@@ -37,6 +31,13 @@ $(document).ready(function() {
             backDelay: 600,
             callback: getName
         });
+}
+
+
+$(document).ready(function() {
+  bgImg.src = "img/bg.png";
+  bgImg2.src = "img/bg2.png";
+
 });
 
 
