@@ -1,8 +1,33 @@
-// $(".backgrounds")
+var bgLoaded = false;
+var bgImg = new Image();
+bgImg.onload = function(){
+  if (bgLoaded) {
+   $(".bg").css("backgroundImage", 'url(' + bgImg.src + ')');
+   showPage();
+  } else {
+    bgLoaded = true;
+  }
+};
 
+var bgImg2 = new Image();
+bgImg2.onload = function(){
+  if (bgLoaded) {
+   $(".bg2").css("backgroundImage", 'url(' + bgImg2.src + ')');
+   showPage();
+  } else {
+    bgLoaded = true;
+  }
+};
+
+function showPage() {
+  $(".backgrounds").fadeIn();
+  $(".main").fadeIn();
+}
 
 
 $(document).ready(function() {
+  bgImg.src = "img/bg.png";
+  bgImg2.src = "img/bg2.png";
 
     $("#name").css("display", "inline-block");
     $(".computer .text").typed({
