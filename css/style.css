@@ -139,6 +139,17 @@ input {
 
 @media (max-width: 600px) {
 
+    .main {
+        top: 0;
+        transform: translateY(0);
+        margin-top: 30px;
+    }
+
+    .input, .input input {
+        width: 100%;
+        margin: 0 15px;
+    }
+
     .logo {
         display: none !important;
     }
