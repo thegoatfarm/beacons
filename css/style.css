@@ -135,3 +135,11 @@ input {
 .chevron:hover {
     border-left-color: rgba(32,32,32,0.8);
 }
+
+
+@media (max-width: 600px) {
+
+    .logo {
+        display: none !important;
+    }
+}
