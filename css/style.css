@@ -240,8 +240,8 @@ input {
         position: relative;
     }
     .input, .input input, .input-db, .input-db input {
-        width: auto;
-        max-width: 100%;
+        width: 90%;
+        max-width: 360px;
     }
 
     .logo, .beacons-logo {
