@@ -23,14 +23,14 @@ function showPage() {
     $(".backgrounds").fadeIn();
     $(".main").fadeIn();
     $(".logo").fadeIn();
-    $("#name").css("display", "inline-block");
+    $("#password").css("display", "inline-block");
     particles();
     $(".computer .text").typed({
-            strings: ["Hi.", "Let's get to know each other a bit.", "What's your name?"],
+            strings: ["Speak, friend, and enter."],
             typeSpeed: 7,
             startDelay: 300,
             backDelay: 600,
-            callback: getName
+            callback: getPassword
         });
 }
 
@@ -46,57 +46,89 @@ function hideInput(elem) {
     $(elem).removeClass("transitions")
     $(elem).blur();
     $(elem).fadeOut();
-    $(".chevron").unbind("click");
+    $(".next-btn").unbind("click");
     $("input").unbind("keypress");
 }
 function showInput(elem, next) {
     $(".typed-cursor").remove();
     $(elem).removeClass("hidden");
-    $(elem).children("input").focus();
+    $($(elem).find("input")[0]).focus();
 
-    $(".chevron").click(next);
+    $(".next-btn").click(next);
     $("input").keypress(function(e) {
         if (e.keyCode === 13) next();
     });
 }
 
-function getName() {
-    showInput($("#name"), askEmail)
+function getPassword() {
+    showInput($("#password"), askUser)
 }
 
-function askEmail() {
-    name = $("#name input").val();
-    hideInput($("#name"));
+function askUser() {
+    hideInput($("#password"));
 
     $(".computer").fadeOut(function() {
-        $("#email").css("display", "inline-block");
+        $("#user").css("display", "inline-block");
         $(".computer").html("<span class='text'></span>");
         $(".computer").css("display", "block");
         $(".computer .text").typed({
-            strings: ["Thanks, " + name + ". Welcome to Beacons.", "Now, may I have your email?"],
+            strings: ["Who goes there?"],
             typeSpeed: 10,
             startDelay: 100,
             backDelay: 750,
-            callback: getEmail
+            callback: getUser
         });
     })
 }
 
-function getEmail() {
-    showInput("#email", takeBreak)
+function getUser() {
+    showInput("#user", thanks);
 }
 
-function takeBreak() {
+function thanks() {
+    name = $("#name input").val();
     email = $("#email input").val();
-    hideInput($("#email"));
-    $(".computer").fadeOut(800);
-
-    $(".bg").fadeOut(1000, function() {
-        $(".beacons-logo").fadeIn(1200);
+    hideInput($("#user"));
+    $(".computer").fadeOut(800, function() {
+      $(".computer").html("<span class='text'></span>");
+      $(".computer").css("display", "block");
+      $(".computer .text").typed({
+        strings: ["Thanks, " + name + ". <br>Welcome to Beacons."],
+        typeSpeed: 10,
+        startDelay: 100,
+        backDelay: 750,
+        callback: bgTransition
+      });
     });
 
 }
 
+function bgTransition() {
+  $(".bg").fadeOut(1000, function() {
+    $(".computer").fadeOut(900, function() {
+        $(".beacons-logo").fadeIn(1200);
+        handshake();
+    });
+  });
+  
+}
+
+function handshake() {
+  $("#cool").css("display", "inline-block");
+  $(".computer").html("<span class='text'></span>");
+  $(".computer").css("display", "block");
+  $(".computer .text").typed({
+    strings: ["It seems a brief conversation and learning the secret handshake got you this far.", " We'll need to find out a little more information about you before we can move to second base. Cool?"],
+    typeSpeed: 8,
+    startDelay: 10,
+    backDelay: 1250,
+    callback: askCool
+  });
+}
+
+function askCool() {
+  showInput("#cool", askCool)
+}
 
 
 function particles() {
