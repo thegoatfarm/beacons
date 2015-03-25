@@ -136,16 +136,12 @@ function askCool() {
 
 function showBox() {
   $(".main").fadeOut(function() {
-    $(".answer-box").fadeIn(function() {
-      $(".computer2 .text").typed({
-        strings: ["How many times have you traveled around the sun?"],
-        typeSpeed: 8,
-        startDelay: 10,
-        backDelay: 1250,
-        callback: askCool
-      });
-    });
+    $(".answer-box").fadeIn();
   });
+}
+
+function askAge() {
+  $("#m1").addClass("active");
 }
 
 

@@ -1,6 +1,6 @@
 .answer-box {
     display: none;
-    width: 450px;
+    width: 400px;
     height: 300px;
     border: 1px solid #bc0c11;
     border-top: none;
@@ -8,7 +8,7 @@
     top: 50%;
     margin-top: -150px;
     left: 50%;
-    margin-left: -225px;
+    margin-left: -200px;
     z-index: 51;
 }
 
@@ -27,7 +27,7 @@
     float: left;
     font-size: 18px;
     vertical-align: middle;
-    padding: 0 30px;
+    padding: 0 20px;
 }
 .answer-box .back-button {
     cursor: pointer;
@@ -45,9 +45,11 @@
     height: 10px;
     border-radius: 50%;
     border: 1px solid #bc0c11;
+    transition: background-color 1.5s;
+    background-color: rgba(0,0,0,0);
 }
 .progress .marker.active {
-    background: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.4);
 }
 
 .answer-box .next-button {
