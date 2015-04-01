@@ -12,6 +12,8 @@
     z-index: 51;
 }
 
+.info { display: none; }
+
 .answer-box .navigation {
     border-top: 1px solid #bc0c11;
     position: absolute;
@@ -64,6 +66,11 @@
     left: 0;
     right: 0;
     margin-top: 25px;
+    text-align: center;
+}
+.user-answer .input-db {
+    text-align: center;
+    margin: 0 25px;
 }
 .ui-widget-content {
     height: 2px;

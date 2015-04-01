@@ -147,16 +147,57 @@ function askCool() {
 
 
 
+function boxInput(elem, next, prev) {
+
+    $(".next-button").unbind("click");
+    $(".back-button").unbind("click");
+
+    $(".info").fadeOut();
+    $(elem).fadeIn();
+    $($(elem).find("input")[0]).focus();
+
+    $(".next-button").click(next);
+    $(".back-button").click(prev);
+    $("input").keypress(function(e) {
+        if (e.keyCode === 13) next();
+    });
+}
+
+function showMarker(i) {
+  for (var j = 1; j <= i; j++ ) $("#m" + j).addClass("active");
+  for (var j = i + 1; j <= 5; j++ ) $("#m" + j).removeClass("active");
+}
+
 
 
 function showBox() {
   $(".main").fadeOut(function() {
     $(".answer-box").fadeIn();
-    $("#m1").addClass("active");
+    boxInput($("#info1"), askPostal, function() {} );
+    showMarker(1);
+
   });
 }
 
-function askAge() {
+function askPostal() {
+  boxInput($("#info2"), askTrade, showBox );
+  showMarker(2);
+}
+
+function askTrade() {
+  boxInput($("#info3"), askSpace, askPostal );
+  showMarker(3);
+}
+
+function askSpace() {
+  boxInput($("#info4"), end, askTrade );
+  showMarker(4);
+}
+
+function end() {
+  boxInput($("#info5"), function() {}, function() {});
+  showMarker(5);
+  $(".navigation").fadeOut();
 }
 
 
