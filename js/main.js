@@ -43,15 +43,15 @@ $(document).ready(function() {
   $(function() {
     $( "#age-slider" ).slider({
       value:18,
-      min: 11,
-      max: 99,
-      step: 7,
+      min: 18,
+      max: 65,
+      step: 10,
       slide: function( event, ui ) {
-        $( "#age-value" ).html(ui.value + "&ndash;" + (parseInt(ui.value) + 6));
+        $( "#age-value" ).html(ui.value + "&ndash;" + (parseInt(ui.value) + 9));
       }
     });
     var value = $("#age-slider").slider("value");
-    $("#age-value").html(value + "&ndash;" + (parseInt(value) + 6));
+    $("#age-value").html(value + "&ndash;" + (parseInt(value) + 9));
   });
 
 });
@@ -199,17 +199,19 @@ function end() {
   showMarker(5);
   $(".navigation").fadeOut();
 
+  var age = $("#age-slider").slider("value");
+  var ageRange = age + "-" + (parseInt(age) + 9);
+
   var data = {
     password: $("#password").find("input").val(),
     name: $("#name").find("input").val(),
     email: $("#email").find("input").val(),
-    age: $("#age-slider").slider("value"),
+    age: ageRange,
     location: $("#postal").val(),
     trade: $("#trade").val(),
-    opportunity: $("#opportunity").val()
+    opportunity: $("#opportunity").val(),
+    timestamp: (new Date()).toString()
   };
-
-  console.log(data);
 
   $.get("https://script.google.com/macros/s/AKfycbyP8o1UkJuC5H_g1hrFpvC6B7wSoCpU6ggKGpDN79tkpYlsznc/exec", data)
 }
