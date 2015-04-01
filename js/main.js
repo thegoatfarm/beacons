@@ -39,6 +39,21 @@ $(document).ready(function() {
   bgImg.src = "img/bg.png";
   bgImg2.src = "img/bg2.png";
 
+
+  $(function() {
+    $( "#age-slider" ).slider({
+      value:18,
+      min: 11,
+      max: 99,
+      step: 7,
+      slide: function( event, ui ) {
+        $( "#age-value" ).html(ui.value + "&ndash;" + (parseInt(ui.value) + 6));
+      }
+    });
+    var value = $("#age-slider").slider("value");
+    $("#age-value").html(value + "&ndash;" + (parseInt(value) + 6));
+  });
+
 });
 
 
@@ -137,11 +152,11 @@ function askCool() {
 function showBox() {
   $(".main").fadeOut(function() {
     $(".answer-box").fadeIn();
+    $("#m1").addClass("active");
   });
 }
 
 function askAge() {
-  $("#m1").addClass("active");
 }
 
 

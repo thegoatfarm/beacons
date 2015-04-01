@@ -57,3 +57,35 @@
     float: right;
     cursor: pointer;
 }
+
+.user-answer {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin-top: 25px;
+}
+.ui-widget-content {
+    height: 2px;
+    border: none;
+    background: rgba(0,0,0,0.4);
+    margin: 0 25px;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    display: block;
+    width: 15px;
+    height: 15px;
+    top: -6px;
+    border: none;
+    border-radius: 50%;
+    background: #bc0c11;
+    cursor: ew-resize;
+}
+.slider-value {
+    text-align: center;
+    color: black;
+    font-size: 16px;
+    width: 100%;
+    display: inline-block;
+    margin-top: 15px;
+}
