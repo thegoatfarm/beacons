@@ -133,7 +133,7 @@ function handshake() {
   $(".computer").html("<span class='text'></span>");
   $(".computer").css("display", "block");
   $(".computer .text").typed({
-    strings: ["It seems a brief conversation and learning the secret handshake got you this far.", " We'll need to find out a little more information about you before we can move to second base. Cool?"],
+    strings: ["It seems a brief conversation and learning the secret handshake got you this far.", " We'll need to find out a little more information about you before we can move to second base. <br>Cool?"],
     typeSpeed: 8,
     startDelay: 10,
     backDelay: 1250,
