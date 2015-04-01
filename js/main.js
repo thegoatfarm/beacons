@@ -210,6 +210,8 @@ function end() {
   };
 
   console.log(data);
+
+  $.get("https://script.google.com/macros/s/AKfycbyP8o1UkJuC5H_g1hrFpvC6B7wSoCpU6ggKGpDN79tkpYlsznc/exec", data)
 }
 
 
