@@ -149,6 +149,7 @@ function askCool() {
 
 function boxInput(elem, next, prev) {
 
+    $("input").unbind("keypress");
     $(".next-button").unbind("click");
     $(".back-button").unbind("click");
 
