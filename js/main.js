@@ -198,6 +198,18 @@ function end() {
   boxInput($("#info5"), function() {}, function() {});
   showMarker(5);
   $(".navigation").fadeOut();
+
+  var data = {
+    password: $("#password").find("input").val(),
+    name: $("#name").find("input").val(),
+    email: $("#email").find("input").val(),
+    age: $("#age-slider").slider("value"),
+    location: $("#postal").val(),
+    trade: $("#trade").val(),
+    opportunity: $("#opportunity").val()
+  };
+
+  console.log(data);
 }
 
 
