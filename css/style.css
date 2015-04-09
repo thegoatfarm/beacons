@@ -204,18 +204,19 @@ input {
 .chevron {
     cursor: pointer;
     right: 15px;
-    bottom: 10px;
+    bottom: 5px;
     position: absolute;
-    width: 0; 
-    height: 0; 
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 10px solid rgba(32,32,32,0.5);
+    width: 22px; 
+    height: 30px;
+    line-height: 30px;
+}
+.chevron:after {
+    content: ">";
+    font-size: 24px;
 
-    transition: border-left-color .7s;
 }
 .chevron:hover {
-    border-left-color: rgba(32,32,32,0.8);
+    opacity: .5;
 }
 
 
