@@ -1,4 +1,13 @@
-html,body { width:100%; height:100%; margin:0; overflow: hidden; }
+html,body { width:100%; height:100%; margin:0; padding:0; overflow: hidden; background: #ebe9e5; }
+.backgrounds, .main, .logo { display: none; }
+.container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+}
 .backgrounds > div {
     position: absolute;
     top: 0;
@@ -12,10 +21,6 @@ html,body { width:100%; height:100%; margin:0; overflow: hidden; }
 .bg {
     background-image: url(../img/bg.png);
     z-index: 5;
-}
-.bg-blur {
-    background-image: url(../img/bg-blur.png);
-    z-index: 3;
 }
 .bg2 {
     background-image: url(../img/bg2.png);
@@ -65,6 +70,7 @@ html,body { width:100%; height:100%; margin:0; overflow: hidden; }
     opacity: .65;
 }
 .beacons-logo {
+    cursor: pointer;
     display: none;
     height: 28px;
     width: auto;
@@ -72,35 +78,110 @@ html,body { width:100%; height:100%; margin:0; overflow: hidden; }
     z-index: 50;
     top: 30px;
     left: 30px;
+    opacity: .8;
+}
+.beacons-logo:hover {
+    opacity: 1;
 }
 
 .main {
     text-align: center;
-    position: relative;
+    position: absolute;
+    width: 100%;
+    top: 38%;
     z-index: 45;
-    top: 50%;
-    transform: translateY(-50%);
+    /*bottom: 50%;*/
+    /*transform: translateY(-50%);*/
 }
-.computer {
+.computer, .computer2 {
     color: #bc0c11;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 300;
+    max-width: 20em;
+    margin: 5px auto;
+    left: 0;
+    right: 0;
 }
-.input {
+.text {
+    /*display: inline-block;*/
+}
+.computer2 {
+    font-size: 22px;
+    max-width: 350px;
+    text-align: center;
+}
+.submit {
+    cursor: pointer;
+    position: absolute;
+    bottom: -30px;
+    text-align: right;
+    right: 0;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    color: black;
+    font-weight: 400;
+}
+.submit:hover {
+    opacity: .5;
+}
+.block-btn {
     position: relative;
+    top: 20px;
+    cursor: pointer;
+    padding: 10px 45px;
+    border: 1px solid #bc0c11;
+    font-size: 18px;
+    letter-spacing: 0.05em;
+    color: black;
+    font-weight: 400;
+}
+.block-btn:hover {
+    opacity: .5;
+}
+.input, .input-container {
     display: none;
+    margin: 5px auto;
+    left: 0;
+    right: 0;
+    opacity: 1;
+}
+.input, .input-db {
+    position: relative;
     border-bottom: 1px solid #bc0c11;
     width: 360px;
     height: 40px;
-    top: 0;
-    opacity: 1;
 }
-.input, .input input {
-    font-size: 28px;
+.input-db {
+    margin: auto;
+}
+.input#placeholder {
+    width: 0;
+    display: inline-block;
+}
+.input, .input-db {
+    margin-top: 12px;
+}
+.input, .input input, .input-db, .input-db input {
+    font-size: 24px;
     font-weight: 300;
-    color: rgba(0,0,0,0.5);
+    color: rgba(0,0,0,0.65);
     font-family: inherit;
     text-align: left;
+}
+::-webkit-input-placeholder {
+   color: rgba(0,0,0,0.4);
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: rgba(0,0,0,0.4);  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: rgba(0,0,0,0.4);  
+}
+
+:-ms-input-placeholder {  
+   color: rgba(0,0,0,0.4);  
 }
 input {
     margin-left: 30px;
@@ -111,26 +192,68 @@ input {
     height: 30px;
     padding-bottom: 10px;
 }
-.input.transitions {
-    transition: opacity 2s, top .6s ease-in;
+.input.transitions, .input-container.transitions {
+    transition: opacity 2s, margin-top .6s ease-in;
 }
-.input.hidden {
+.input.hidden, .input-container.hidden {
     opacity: 0;
-    top: 120px;
+    margin-top: 120px;
 }
 .chevron {
     cursor: pointer;
     right: 15px;
-    bottom: 10px;
+    bottom: 5px;
     position: absolute;
-    width: 0; 
-    height: 0; 
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-left: 10px solid rgba(32,32,32,0.5);
+    width: 22px; 
+    height: 30px;
+    line-height: 30px;
+}
+.chevron:after {
+    content: ">";
+    font-size: 24px;
 
-    transition: border-left-color .7s;
 }
 .chevron:hover {
-    border-left-color: rgba(32,32,32,0.8);
+    opacity: .5;
+}
+
+
+@media (max-width: 600px) {
+
+    html, body { max-width: 100%; }
+
+    .main {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        bottom: 15px;
+        left: 15px;
+        width: auto;
+        /*padding: 0 15px;*/
+        background: rgba(235,233,229,0.4);
+        transform: translateY(0);
+        /*padding-top: 30px;*/
+    }
+
+    .computer, .computer .text, .computer2, .computer2 .text {
+        word-wrap: break-word;
+        white-space: pre-wrap;
+        width: auto;
+        margin: auto;
+        max-width: 360px;
+        position: static;
+    }
+    .input, .input-container, .input-db  {
+        position: relative;
+        width: 90%;
+        max-width: 360px;
+    }
+    .input input, .input-db input {
+        margin: auto;
+        width: inherit;
+    }
+
+    .logo, .beacons-logo {
+        display: none !important;
+    }
 }
