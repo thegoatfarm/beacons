@@ -130,13 +130,15 @@ function bgTransition() {
 
 function handshake() {
   $("#cool").css("display", "inline-block");
-  $(".computer").html("<span class='text'></span>");
+  $(".computer").html("<span class='text' style='white-space:pre-line'></span>");
   $(".computer").css("display", "block");
   $(".computer .text").typed({
-    strings: ["It seems a brief conversation and learning the secret handshake got you this far.", " We'll need to find out a little more information about you before we can move to second base. <br>Cool?"],
+    strings: ["It seems a brief conversation and learning the secret handshake got you this far.", 
+              "We'll need to find out a little more information about you before we can move to second base. \nCool?"],
     typeSpeed: 8,
     startDelay: 10,
     backDelay: 1250,
+    contentType: 'text',
     callback: askCool
   });
 }
