@@ -1,13 +1,13 @@
 .answer-box {
     display: none;
-    width: 400px;
+    width: 500px;
     height: 300px;
     border: 1px solid #bc0c11;
     position: absolute;
     top: 50%;
     margin-top: -150px;
     left: 50%;
-    margin-left: -200px;
+    margin-left: -250px;
     z-index: 51;
 }
 
@@ -21,6 +21,12 @@
     max-width: 360px;
     position: absolute;
     bottom: 50%;
+}
+.computer2 {
+    left: 50px;
+    right: 50px;
+}
+.computer2 .text {
     left: 0;
     right: 0;
 }
@@ -74,8 +80,8 @@
 .user-answer {
     position: absolute;
     top: 50%;
-    left: 0;
-    right: 0;
+    left: 50px;
+    right: 50px;
     margin-top: 25px;
     text-align: center;
 }
