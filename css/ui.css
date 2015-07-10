@@ -25,6 +25,7 @@
 .computer2 {
     left: 50px;
     right: 50px;
+    margin-bottom: 30px;
 }
 .computer2 .text {
     left: 0;
@@ -82,7 +83,7 @@
     top: 50%;
     left: 50px;
     right: 50px;
-    margin-top: 25px;
+    margin-top: 0;
     text-align: center;
 }
 .user-answer .input-db {
