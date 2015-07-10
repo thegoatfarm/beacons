@@ -13,6 +13,18 @@
 
 .info { display: none; }
 
+.computer2, .computer2 .text {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    width: auto;
+    margin: auto;
+    max-width: 360px;
+    position: absolute;
+    bottom: 50%;
+    left: 0;
+    right: 0;
+}
+
 .answer-box .navigation {
     border-top: 1px solid #bc0c11;
     position: absolute;

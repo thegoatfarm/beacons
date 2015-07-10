@@ -160,7 +160,7 @@ html,body { width:100%; height:100%; margin:0; padding:0; overflow: hidden; back
     display: inline-block;
 }
 .input, .input-db {
-    margin-top: 12px;
+    margin-top: 24px;
 }
 .input, .input input, .input-db, .input-db input {
     font-size: 24px;
@@ -236,7 +236,7 @@ input {
         /*padding-top: 30px;*/
     }
 
-    .computer, .computer .text, .computer2, .computer2 .text {
+    .computer, .computer .text {
         word-wrap: break-word;
         white-space: pre-wrap;
         width: auto;
