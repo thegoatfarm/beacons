@@ -1,0 +1,72 @@
+{
+    "questions": [
+        {
+            "question": "Speak, friend, and enter.",
+            "typed": true,
+            "inputs": [
+                {
+                    "placeholder": "Password",
+                    "dataId": "password",
+                    "type": "password"
+                }
+            ],
+            "button": null,
+            "slider": null,
+            "nextBackground": false
+        },
+        {
+            "question": "Who goes there?",
+            "typed": true,
+            "inputs": [
+                {
+                    "placeholder": "Name",
+                    "dataId": "name",
+                    "type": "text"
+                },
+                {
+                    "placeholder": "Email",
+                    "dataId": "email",
+                    "type": "text"
+                }
+            ],
+            "button": {
+                "text": "SUBMIT >",
+                "type": "regular"
+            },
+            "slider": null,
+            "nextBackground": false
+        },
+        {
+            "question": "Thanks, :{name}.\n Welcome to Beacons.",
+            "typed": true,
+            "inputs": null,
+            "button": null,
+            "slider": null,
+            "nextBackground": false
+        },
+        {
+            "question": "We'll need to find out a little more \ninformation about you before we can move \nto second base. Cool?",
+            "typed": true,
+            "inputs": null,
+            "button": {
+                "text": "COOL",
+                "type": "boxed"
+            },
+            "slider": null,
+            "nextBackground": true
+        }
+    ],
+
+    "boxedQuestions": [
+        {
+            "question": "How many times have you traveled around the sun?",
+            "typed": false,
+            "inputs": [],
+            "slider": {
+                "values": ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"],
+                "dataId": "age"
+            },
+            "nextBackground": false
+        }
+    ]
+}

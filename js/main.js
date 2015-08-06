@@ -1,5 +1,12 @@
 var bgLoaded = false;
 var bgImg = new Image();
+var surveyData;
+var userData = {};
+
+var font1 = "tk-brandon-grotesque";
+var font2 = "tk-prestige-elite-std";
+
+
 bgImg.onload = function(){
   if (bgLoaded) {
    $(".bg").css("backgroundImage", 'url(' + bgImg.src + ')');
@@ -19,21 +26,155 @@ bgImg2.onload = function(){
   }
 };
 
+
 function showPage() {
     $(".backgrounds").fadeIn();
     $(".main").fadeIn();
     $(".logo").fadeIn();
-    $("#password").css("display", "inline-block");
+    // $("#password").css("display", "inline-block");
+    // WARNING: fails silently
+    $.getJSON("js/survey.json", function(data) {
+      surveyData = data;
+      startSurveyQuestionsLoop(surveyData.questions);
+    });
     particles();
-    $(".computer .text").typed({
-            strings: ["Speak, friend, and enter."],
-            typeSpeed: 7,
-            startDelay: 300,
-            backDelay: 600,
-            callback: getPassword
-        });
+    // $(".computer .text").typed({
+    //         strings: ["Speak, friend, and enter."],
+    //         typeSpeed: 7,
+    //         startDelay: 300,
+    //         backDelay: 600,
+    //         callback: getPassword
+    //     });
 }
 
+function startSurveyQuestionsLoop (questions) {
+
+  // initialize base question div
+  $(".survey-container").html("<div class='question-container'></div>");
+  var questionContainer = $(".question-container");
+  questionContainer.attr("opacity", 0);
+
+  var questionIndex = 0;
+  displayQuestion(questions[questionIndex]);
+
+  $(window).on("nextQuestion", function(e) {
+    // save user data
+    questionContainer.find("input").each(function() {
+      userData[$(this).attr("id")] = $(this).val();
+    });
+
+    // fade out and remove old content
+    questionContainer.animate({
+      "opacity": 0
+    }, function() {
+
+      questionContainer.html("");
+      questionIndex++;
+      if (questionIndex < questions.length) displayQuestion(questions[questionIndex]);
+      else $(window).off("nextQuestion");
+      
+    });
+
+  });
+
+
+}
+
+function displayQuestion (question) {
+
+  var questionContainer = $(".question-container");
+
+  if (question.question) {
+    questionContainer.append("<div class='question-text " + font2 + "'>" + parseQuestionString(question.question) + "</div>");
+  }
+
+  if (question.inputs && question.inputs.length > 0) {
+    questionContainer.append("<div class='inputs " + font1 + "'></div>");
+    var inputsDiv = questionContainer.find(".inputs");
+
+    for (var i = 0; i < question.inputs.length; i++) {
+      var currentInput = question.inputs[i];
+      var newInput = $("<input>");
+      if (currentInput.placeholder) newInput.attr("placeholder", currentInput.placeholder);
+      if (currentInput.type) newInput.attr("type", currentInput.type);
+      if (currentInput.dataId) newInput.attr("id", currentInput.dataId);
+      var wrappedInput = $("<div class='input'></div>");
+      wrappedInput.html(newInput);
+      inputsDiv.append(wrappedInput);
+    }
+
+    var inputs = inputsDiv.find(".input");
+    $(inputs[0]).find("input").focus();
+
+    inputs.each(function(i) {
+        $(this).keypress(function(e) {
+          if (e.which == 13) {
+            if (i < inputs.length - 1) {
+              $(inputs[i + 1]).find("input").focus();
+            } else {
+              $(this).trigger("nextQuestion");
+            }
+          }
+        })
+    });
+
+    // add default next chevron
+    if (!question.button) {
+      inputsDiv.find(".input:last-child").append("<div class='next-chevron'></div>");
+      $(".next-chevron").on("click", function(e) {
+        $(this).trigger("nextQuestion");
+      });
+
+    }
+  }
+
+  if (question.button) {
+    switch (question.button.type) {
+
+      case "regular":
+        questionContainer.append("<div class='next-button " + font1 + "'>" + question.button.text + "</div>");
+        questionContainer.find(".next-button").on("click", function(e) {
+          $(this).trigger("nextQuestion");
+        });
+        break;
+      case "boxed":
+        questionContainer.append("<div class='boxed-button " + font1 + "'>" + question.button.text + "</div>");
+        questionContainer.find(".boxed-button").on("click", function(e) {
+          $(this).trigger("nextQuestion");
+        });
+        break;
+
+    }
+  }
+
+  if (!question.inputs && !question.button) {
+    setTimeout(function() {
+      $(window).trigger("nextQuestion");
+    }, question.waitTime || 2000);
+  }
+
+  if (question.nextBackground) {
+    bgTransition();
+  }
+
+  questionContainer.animate({
+    "opacity": 1
+  });
+}
+
+
+function parseQuestionString(questionText) {
+  var regex = /:\{\S+\}/g;
+  return questionText.replace(regex, function(x) {
+    return userData[x.slice(2,-1)];
+  });
+}
+
+function bgTransition() {
+  $(".bg").fadeOut(1000, function() {
+    $(".beacons-logo").fadeIn(1200);
+  });
+}
 
 $(document).ready(function() {
   bgImg.src = "img/bg.png";
@@ -74,80 +215,6 @@ function showInput(elem, next) {
         if (e.keyCode === 13) next();
     });
 }
-
-function getPassword() {
-    showInput($("#password"), askUser)
-}
-
-function askUser() {
-    hideInput($("#password"));
-
-    $(".computer").fadeOut(function() {
-        $("#user").css("display", "inline-block");
-        $(".computer").html("<span class='text'></span>");
-        $(".computer").css("display", "block");
-        $(".computer .text").typed({
-            strings: ["Who goes there?"],
-            typeSpeed: 10,
-            startDelay: 100,
-            backDelay: 750,
-            callback: getUser
-        });
-    })
-}
-
-function getUser() {
-    showInput("#user", thanks);
-}
-
-function thanks() {
-    name = $("#name input").val();
-    email = $("#email input").val();
-    hideInput($("#user"));
-    $(".computer").fadeOut(800, function() {
-      $(".computer").html("<span class='text'></span>");
-      $(".computer").css("display", "block");
-      $(".computer .text").typed({
-        strings: ["Thanks, " + name + ". <br>Welcome to Beacons."],
-        typeSpeed: 10,
-        startDelay: 100,
-        backDelay: 750,
-        callback: bgTransition
-      });
-    });
-
-}
-
-function bgTransition() {
-  $(".bg").fadeOut(1000, function() {
-    $(".computer").fadeOut(900, function() {
-        $(".beacons-logo").fadeIn(1200);
-        handshake();
-    });
-  });
-  
-}
-
-function handshake() {
-  $("#cool").css("display", "inline-block");
-  $(".computer").html("<span class='text' style='white-space:pre-line'></span>");
-  $(".computer").css("display", "block");
-  $(".computer .text").typed({
-    strings: ["It seems a brief conversation and learning the secret handshake got you this far.", 
-              "We'll need to find out a little more information about you before we can move to second base. \nCool?"],
-    typeSpeed: 8,
-    startDelay: 10,
-    backDelay: 1250,
-    contentType: 'text',
-    callback: askCool
-  });
-}
-
-function askCool() {
-  showInput("#cool", showBox)
-}
-
-
 
 function boxInput(elem, next, prev) {
 
@@ -222,64 +289,113 @@ function end() {
 
 function particles() {
     particlesJS('particles-js', {
-      particles: {
-        color: '#bc0c11',
-        color_random: false,
-        shape: 'circle', // "circle", "edge" or "triangle"
-        opacity: {
-          opacity: 1,
-          anim: {
-            enable: false,
-            speed: 1.5,
-            opacity_min: 0,
-            sync: false
+      "particles": {
+        "number": {
+          "value": 70,
+          "density": {
+            "enable": true,
+            "value_area": 1000
           }
         },
-        size: 2.5,
-        size_random: false,
-        nb: 30,
-        line_linked: {
-          enable_auto: true,
-          distance: 140,
-          color: '#bc0c11',
-          opacity: 1,
-          width: 1,
-          condensed_mode: {
-            enable: false,
-            rotateX: 600,
-            rotateY: 600
-          }
+        "color": {
+          "value": "#bc0c11"
         },
-        anim: {
-          enable: true,
-          speed: 1
-        }
-      },
-      interactivity: {
-        enable: true,
-        mouse: {
-          distance: 250
-        },
-        detect_on: 'window', // "canvas" or "window"
-        mode: 'grab', // "grab" of false
-        line_linked: {
-          opacity: .5
-        },
-        events: {
-          onclick: {
-            enable: false,
-            mode: 'push', // "push" or "remove"
-            nb: 4
+        "shape": {
+          "type": "circle",
+          "stroke": {
+            "width": 0,
+            "color": "#bc0c11"
           },
-          onresize: {
-            enable: true,
-            mode: 'out', // "out" or "bounce"
-            density_auto: false,
-            density_area: 800 // nb_particles = particles.nb * (canvas width *  canvas height / 1000) / density_area
+          "polygon": {
+            "nb_sides": 5
+          },
+          "image": {
+            "src": "img/github.svg",
+            "width": 100,
+            "height": 100
+          }
+        },
+        "opacity": {
+          "value": 0.7,
+          "random": false,
+          "anim": {
+            "enable": false,
+            "speed": 0.6,
+            "opacity_min": 0.1,
+            "sync": false
+          }
+        },
+        "size": {
+          "value": 5,
+          "random": true,
+          "anim": {
+            "enable": false,
+            "speed": 50,
+            "size_min": 0.1,
+            "sync": false
+          }
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 300,
+          "color": "#bc0c11",
+          "opacity": 0.4,
+          "width": 2
+        },
+        "move": {
+          "enable": true,
+          "speed": 3,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": {
+            "enable": false,
+            "rotateX": 600,
+            "rotateY": 1200
           }
         }
       },
-      /* Retina Display Support */
-      retina_detect: true
+      "interactivity": {
+        "detect_on": "window",
+        "events": {
+          "onhover": {
+            "enable": true,
+            "mode": "grab"
+          },
+          "onclick": {
+            "enable": true,
+            "mode": "push"
+          },
+          "resize": true
+        },
+        "modes": {
+          "grab": {
+            "distance": 200,
+            "line_linked": {
+              "opacity": 0.6
+            }
+          },
+          "bubble": {
+            "distance": 800,
+            "size": 80,
+            "duration": 2,
+            "opacity": 8,
+            "speed": 3
+          },
+          "repulse": {
+            "distance": 400,
+            "duration": 0.4
+          },
+          "push": {
+            "particles_nb": 2
+          },
+          "remove": {
+            "particles_nb": 2
+          }
+        }
+      },
+      "retina_detect": true
     });
 }

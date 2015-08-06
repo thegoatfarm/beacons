@@ -1,13 +1,5 @@
-html,body { width:100%; height:100%; margin:0; padding:0; overflow: hidden; background: #ebe9e5; }
-.backgrounds, .main, .logo { display: none; }
-.container {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-}
+html,body,.container { width:100%; height:100%; margin:0; padding:0; overflow: hidden; background: #ebe9e5; }
+.backgrounds, .logo { display: none; }
 .backgrounds > div {
     position: absolute;
     top: 0;
@@ -84,107 +76,47 @@ html,body { width:100%; height:100%; margin:0; padding:0; overflow: hidden; back
     opacity: 1;
 }
 
-.main {
-    text-align: center;
-    position: absolute;
-    width: 100%;
-    top: 38%;
+.survey-container {
+    position: relative;
     z-index: 45;
-    /*bottom: 50%;*/
-    /*transform: translateY(-50%);*/
+    width: 100%;
+    height: 100%;
+    text-align: center;
 }
-.computer, .computer2 {
+
+.question-container, .survey-container:before {
+    display: inline-block;
+    vertical-align: middle;
+}
+.survey-container:before {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 100%;
+    vertical-align: middle;
+    /* this just takes care of whitespace added by having display:inline-block (there are other methods) */
+    margin-left: -0.25em;
+
+}
+
+
+.question-text {
     color: #bc0c11;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 300;
     max-width: 20em;
-    margin: 5px auto;
-    left: 0;
-    right: 0;
+    margin-bottom: 30px;
 }
-.text {
-    /*display: inline-block;*/
-    overflow: hidden;
+
+.inputs {
+    width: 100%;
 }
-.computer2 {
-    font-size: 22px;
-    max-width: 350px;
-    text-align: center;
-}
-.submit {
-    cursor: pointer;
-    position: absolute;
-    bottom: -60px;
-    text-align: right;
-    right: 0;
-    font-size: 18px;
-    letter-spacing: 0.05em;
-    color: black;
-    font-weight: 400;
-}
-.submit:hover {
-    opacity: .5;
-}
-.block-btn {
-    position: relative;
-    top: 20px;
-    cursor: pointer;
-    padding: 10px 45px;
-    border: 1px solid #bc0c11;
-    font-size: 18px;
-    letter-spacing: 0.05em;
-    color: black;
-    font-weight: 400;
-}
-.block-btn:hover {
-    opacity: .5;
-}
-.input, .input-container {
-    display: none;
-    margin: 5px auto;
-    left: 0;
-    right: 0;
-    opacity: 1;
-}
-.input, .input-db {
-    position: relative;
-    border-bottom: 1px solid #bc0c11;
-    width: 360px;
-    height: 40px;
-}
-.input-db {
-    margin: auto;
-}
-.input#placeholder {
-    width: 0;
-    display: inline-block;
-}
-.input, .input-db {
-    margin-top: 24px;
-}
-.input, .input input, .input-db, .input-db input {
-    font-size: 24px;
-    font-weight: 300;
-    color: rgba(0,0,0,0.65);
-    font-family: inherit;
-    text-align: left;
-}
-::-webkit-input-placeholder {
+
+::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
    color: rgba(0,0,0,0.4);
 }
 
-:-moz-placeholder { /* Firefox 18- */
-   color: rgba(0,0,0,0.4);  
-}
-
-::-moz-placeholder {  /* Firefox 19+ */
-   color: rgba(0,0,0,0.4);  
-}
-
-:-ms-input-placeholder {  
-   color: rgba(0,0,0,0.4);  
-}
-input {
+.input input {
     margin-left: 30px;
     width: 285px;
     outline: none;
@@ -192,15 +124,23 @@ input {
     border: none;
     height: 30px;
     padding-bottom: 10px;
+    font: inherit;
 }
-.input.transitions, .input-container.transitions {
-    transition: opacity 2s, margin-top .6s ease-in;
+
+.input {
+    text-align: left;
+    position: relative;
+    border-bottom: 1px solid #bc0c11;
+    margin-bottom: 30px;
+    width: 360px;
+    height: 40px;
+    font-size: 22px;
+    font-weight: 300;
+    color: rgba(0,0,0,0.65);
+    font-family: inherit;
 }
-.input.hidden, .input-container.hidden {
-    opacity: 0;
-    margin-top: 120px;
-}
-.chevron {
+
+.next-chevron {
     cursor: pointer;
     right: 15px;
     bottom: 5px;
@@ -209,52 +149,30 @@ input {
     height: 30px;
     line-height: 30px;
 }
-.chevron:after {
+.next-chevron:after {
     content: ">";
-    font-size: 24px;
+    font-size: 22px;
 
 }
-.chevron:hover {
+.next-chevron:hover {
     opacity: .5;
 }
 
-
-@media (max-width: 600px) {
-
-    html, body { max-width: 100%; }
-
-    .main {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        bottom: 15px;
-        left: 15px;
-        width: auto;
-        /*padding: 0 15px;*/
-        background: rgba(235,233,229,0.4);
-        transform: translateY(0);
-        /*padding-top: 30px;*/
-    }
-
-    .computer, .computer .text {
-        word-wrap: break-word;
-        white-space: pre-wrap;
-        width: auto;
-        margin: auto;
-        max-width: 360px;
-        position: static;
-    }
-    .input, .input-container, .input-db  {
-        position: relative;
-        width: 90%;
-        max-width: 360px;
-    }
-    .input input, .input-db input {
-        margin: auto;
-        width: inherit;
-    }
-
-    .logo, .beacons-logo {
-        display: none !important;
-    }
+.next-button, .boxed-button {
+    cursor: pointer;
+    font-size: 16px;
+    letter-spacing: 0.05em;
+    color: black;
+    font-weight: 400;
+}
+.next-button:hover, .boxed-button:hover {
+    opacity: .5;
+}
+.next-button {
+    text-align: right;
+}
+.boxed-button {
+    display: inline-block;
+    padding: 10px 45px;
+    border: 1px solid #bc0c11;
 }
