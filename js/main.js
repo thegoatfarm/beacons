@@ -291,7 +291,7 @@ function particles() {
     particlesJS('particles-js', {
       "particles": {
         "number": {
-          "value": 70,
+          "value": 60,
           "density": {
             "enable": true,
             "value_area": 1000
@@ -331,7 +331,7 @@ function particles() {
           "anim": {
             "enable": false,
             "speed": 50,
-            "size_min": 0.1,
+            "size_min": 0.5,
             "sync": false
           }
         },
