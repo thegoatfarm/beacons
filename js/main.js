@@ -70,8 +70,12 @@ function startSurveyQuestionsLoop (questions) {
 
       questionContainer.html("");
       questionIndex++;
-      if (questionIndex < questions.length) displayQuestion(questions[questionIndex]);
-      else $(window).off("nextQuestion");
+      if (questionIndex < questions.length) {
+        displayQuestion(questions[questionIndex]);
+      } else  {
+        $(window).off("nextQuestion");
+        startBoxedSurveyLoop(surveyData.boxedQuestions);
+      }
       
     });
 
@@ -162,8 +166,23 @@ function displayQuestion (question) {
   });
 }
 
+function startBoxedSurveyLoop (questions) {
 
-function parseQuestionString(questionText) {
+  console.log(questions);
+  var box = $("<div class='survey-box'></div>");
+  var navigation = $('<div class="navigation"><span class="back-button">&lt;</span><div class="progress"><span id="m1" class="marker"></span><span id="m2" class="marker"></span><span id="m3" class="marker"></span><span id="m4" class="marker"></span><span id="m5" class="marker"></span></div><span class="next-button">NEXT &gt;</span></div>');
+  box.append(navigation);
+  box.attr("opacity", 0);
+
+  $(".survey-container").html(box);
+  box.animate({
+    "opacity": 1
+  });
+
+}
+
+
+function parseQuestionString (questionText) {
   var regex = /:\{\S+\}/g;
   return questionText.replace(regex, function(x) {
     return userData[x.slice(2,-1)];
