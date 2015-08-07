@@ -36,6 +36,7 @@ function showPage() {
     $.getJSON("js/survey.json", function(data) {
       surveyData = data;
       startSurveyQuestionsLoop(surveyData.questions);
+      // startBoxedSurveyLoop(surveyData.boxedQuestions);
     });
     particles();
     // $(".computer .text").typed({
@@ -168,14 +169,177 @@ function displayQuestion (question) {
 
 function startBoxedSurveyLoop (questions) {
 
-  console.log(questions);
-  var box = $("<div class='survey-box'></div>");
-  var navigation = $('<div class="navigation"><span class="back-button">&lt;</span><div class="progress"><span id="m1" class="marker"></span><span id="m2" class="marker"></span><span id="m3" class="marker"></span><span id="m4" class="marker"></span><span id="m5" class="marker"></span></div><span class="next-button">NEXT &gt;</span></div>');
+  var box = $("<div class='survey-box'><div class='question-container'></div></div>");
+  var navigation = $('<div class="navigation ' + font1 + '"><span class="back-button">&lt;</span><div class="progress"><span id="m1" class="marker"></span><span id="m2" class="marker"></span><span id="m3" class="marker"></span><span id="m4" class="marker"></span><span id="m5" class="marker"></span></div><span class="next-button">NEXT &gt;</span></div>');
   box.append(navigation);
   box.attr("opacity", 0);
 
+  navigation.find(".next-button").on("click", function(e) {
+    $(this).trigger("nextQuestion");
+  });
+
+  navigation.find(".back-button").on("click", function(e) {
+    $(this).trigger("prevQuestion");
+  });
+
   $(".survey-container").html(box);
   box.animate({
+    "opacity": 1
+  });
+
+  var questionContainer = $(".question-container");
+
+  var questionIndex = 0;
+  displayBoxedQuestion(questions[questionIndex]);
+  showMarker(1);
+
+  $(window).on("nextQuestion", function(e) {
+    // save user data
+    questionContainer.find("input").each(function() {
+      userData[$(this).attr("id")] = $(this).val();
+    });
+
+    // fade out and remove old content
+    questionContainer.animate({
+      "opacity": 0
+    }, function() {
+
+      questionContainer.html("");
+      questionIndex++;
+      if (questionIndex >= questions.length - 1) {
+        displayBoxedQuestion(questions[questionIndex]);
+        showMarker(questionIndex + 1);
+        $(window).off("nextQuestion");
+        $(window).off("prevQuestion");
+        navigation.fadeOut();
+        submitData();
+      } else if (questionIndex < questions.length) {
+        displayBoxedQuestion(questions[questionIndex]);
+        showMarker(questionIndex + 1);
+      }
+      
+    });
+
+  });
+
+  $(window).on("prevQuestion", function(e) {
+
+    if (questionIndex > 0) {
+
+      // fade out and remove old content
+      questionContainer.animate({
+        "opacity": 0
+      }, function() {
+        questionContainer.html("");
+        questionIndex--;
+        displayBoxedQuestion(questions[questionIndex]);
+        showMarker(questionIndex + 1);
+      });
+
+    }
+
+  });
+
+}
+
+function displayBoxedQuestion (question) {
+
+  var questionContainer = $(".question-container");
+
+  if (question.question) {
+    questionContainer.append("<div class='question-text " + font2 + "'>" + parseQuestionString(question.question) + "</div>");
+  }
+
+  if (question.inputs && question.inputs.length > 0) {
+    questionContainer.append("<div class='inputs " + font1 + "'></div>");
+    var inputsDiv = questionContainer.find(".inputs");
+
+    for (var i = 0; i < question.inputs.length; i++) {
+      var currentInput = question.inputs[i];
+      var newInput = $("<input>");
+      if (currentInput.placeholder) newInput.attr("placeholder", currentInput.placeholder);
+      if (currentInput.type) newInput.attr("type", currentInput.type);
+      if (currentInput.dataId) {
+        newInput.attr("id", currentInput.dataId);
+        if (userData[currentInput.dataId]) newInput.val(userData[currentInput.dataId]);
+      }
+      var wrappedInput = $("<div class='input'></div>");
+      wrappedInput.html(newInput);
+      inputsDiv.append(wrappedInput);
+    }
+
+    var inputs = inputsDiv.find(".input");
+    $(inputs[0]).find("input").focus();
+
+    inputs.each(function(i) {
+        $(this).keypress(function(e) {
+          if (e.which == 13) {
+            if (i < inputs.length - 1) {
+              $(inputs[i + 1]).find("input").focus();
+            } else {
+              $(this).trigger("nextQuestion");
+            }
+          }
+        })
+    });
+  }
+
+  if (question.slider) {
+    questionContainer.append("<div class='slider-container'></div>");
+
+    var sliderContainer = $(".slider-container");
+    var sliderWidth = 400;
+
+    for (var i = 0; i < question.slider.values.length; i++) {
+      var newDivider = $("<div class='divider'></div>");
+      var pos = 15 + i * ((sliderWidth - 30) / (question.slider.values.length - 1));
+      newDivider.css("left", pos + "px");
+      sliderContainer.append(newDivider);
+    }
+
+    var sliderValueText = $("<span class='slider-value " + font1 + "'></span>");
+    sliderValueText.text(question.slider.values[0]);
+    userData[question.slider.dataId] = question.slider.values[0];
+    questionContainer.append(sliderValueText);
+
+    var draggableDot = $("<div class='draggable-dot'></div>");
+    var offset = sliderContainer.offset();
+    var lastPos = (sliderWidth - 30) / (question.slider.values.length - 1);
+    var posIndex = 0;
+    var isDragging = false;
+    draggableDot.mousedown(function() {
+      isDragging = true;
+    });
+    $(window).mousemove(function(e) {
+      if (isDragging) {
+        var posX = e.pageX - offset.left - 7;
+        if (posX < 7) posX = 7;
+        else if (posX > sliderWidth - 22) posX = sliderWidth - 22;
+        posIndex = Math.round(posX / (lastPos));
+        sliderValueText.text(question.slider.values[posIndex]);
+        draggableDot.css("left", posX + "px");
+      }
+    })
+    .mouseup(function(e) {
+      if (isDragging) {
+        var posX = e.pageX - offset.left - 7;
+        if (posX < 7) posX = 7;
+        else if (posX > sliderWidth - 22) posX = sliderWidth - 22;
+        var snapped = posIndex * lastPos + 7;
+        draggableDot.css("left", snapped + "px");
+
+        userData[question.slider.dataId] = question.slider.values[posIndex];
+      }
+      isDragging = false;
+    });
+    sliderContainer.append(draggableDot);
+  }
+
+  if (question.nextBackground) {
+    bgTransition();
+  }
+
+  questionContainer.animate({
     "opacity": 1
   });
 
@@ -216,93 +380,14 @@ $(document).ready(function() {
 
 });
 
-
-function hideInput(elem) {
-    $(elem).removeClass("transitions")
-    $(elem).blur();
-    $(elem).fadeOut();
-    $(".next-btn").unbind("click");
-    $("input").unbind("keypress");
-}
-function showInput(elem, next) {
-    $(".typed-cursor").remove();
-    $(elem).removeClass("hidden");
-    $($(elem).find("input")[0]).focus();
-
-    $(".next-btn").click(next);
-    $("input").keypress(function(e) {
-        if (e.keyCode === 13) next();
-    });
-}
-
-function boxInput(elem, next, prev) {
-
-    $("input").unbind("keypress");
-    $(".next-button").unbind("click");
-    $(".back-button").unbind("click");
-
-    $(".info").fadeOut();
-    $(elem).fadeIn();
-    $($(elem).find("input")[0]).focus();
-
-    $(".next-button").click(next);
-    $(".back-button").click(prev);
-    $("input").keypress(function(e) {
-        if (e.keyCode === 13) next();
-    });
-}
-
 function showMarker(i) {
   for (var j = 1; j <= i; j++ ) $("#m" + j).addClass("active");
   for (var j = i + 1; j <= 5; j++ ) $("#m" + j).removeClass("active");
 }
 
-
-
-function showBox() {
-  $(".main").fadeOut(function() {
-    $(".answer-box").fadeIn();
-    boxInput($("#info1"), askPostal, function() {} );
-    showMarker(1);
-
-  });
-}
-
-function askPostal() {
-  boxInput($("#info2"), askTrade, showBox );
-  showMarker(2);
-}
-
-function askTrade() {
-  boxInput($("#info3"), askSpace, askPostal );
-  showMarker(3);
-}
-
-function askSpace() {
-  boxInput($("#info4"), end, askTrade );
-  showMarker(4);
-}
-
-function end() {
-  boxInput($("#info5"), function() {}, function() {});
-  showMarker(5);
-  $(".navigation").fadeOut();
-
-  var age = $("#age-slider").slider("value");
-  var ageRange = age + "-" + (parseInt(age) + 9);
-
-  var data = {
-    password: $("#password").find("input").val(),
-    name: $("#name").find("input").val(),
-    email: $("#email").find("input").val(),
-    age: ageRange,
-    location: $("#postal").val(),
-    trade: $("#trade").val(),
-    opportunity: $("#opportunity").val(),
-    timestamp: (new Date()).toString()
-  };
-
-  $.get("https://script.google.com/macros/s/AKfycbyP8o1UkJuC5H_g1hrFpvC6B7wSoCpU6ggKGpDN79tkpYlsznc/exec", data)
+function submitData () {
+  userData.timestamp = (new Date()).toString();
+  $.get("https://script.google.com/macros/s/AKfycbyP8o1UkJuC5H_g1hrFpvC6B7wSoCpU6ggKGpDN79tkpYlsznc/exec", userData);
 }
 
 

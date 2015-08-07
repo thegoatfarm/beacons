@@ -59,13 +59,54 @@
 
     "boxedQuestions": [
         {
-            "question": "How many times have you traveled around the sun?",
+            "question": "How many times have you \ntraveled around the sun?",
             "typed": false,
             "inputs": [],
             "slider": {
-                "values": ["18-24", "25-34", "35-44", "45-54", "55-64", "65+"],
+                "values": ["18-24", "25-34", "35-44", "45-54", "55+"],
                 "dataId": "age"
             },
+            "nextBackground": false
+        },
+        {
+            "question": "Where in the world are you?",
+            "typed": false,
+            "inputs": [
+                {
+                    "placeholder": "Postal code",
+                    "dataId": "location",
+                    "type": "text"
+                }
+            ],
+            "nextBackground": false
+        },
+        {
+            "question": "What is your trade?",
+            "typed": false,
+            "inputs": [
+                {
+                    "placeholder": "",
+                    "dataId": "trade",
+                    "type": "text"
+                }
+            ],
+            "nextBackground": false
+        },
+        {
+            "question": "If you had a space in downtown, what would you do with it?",
+            "typed": false,
+            "inputs": [
+                {
+                    "placeholder": "",
+                    "dataId": "opportunity",
+                    "type": "text"
+                }
+            ],
+            "nextBackground": false
+        },
+        {
+            "question": "Thanks! We'll get in touch via email with more info.",
+            "typed": false,
             "nextBackground": false
         }
     ]
