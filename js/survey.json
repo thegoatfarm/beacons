@@ -37,7 +37,7 @@
             "nextBackground": false
         },
         {
-            "question": "Thanks, :{name}.\n Welcome to Beacons.",
+            "question": "Thanks, :{name}. <br>Welcome to Beacons.",
             "typed": true,
             "inputs": null,
             "button": null,
@@ -45,7 +45,7 @@
             "nextBackground": false
         },
         {
-            "question": "We'll need to find out a little more \ninformation about you before we can move \nto second base. Cool?",
+            "question": "We'll need to find out a little more information about you before we can move to second base. Cool?",
             "typed": true,
             "inputs": null,
             "button": {
@@ -59,7 +59,7 @@
 
     "boxedQuestions": [
         {
-            "question": "How many times have you \ntraveled around the sun?",
+            "question": "How many times have you <br>traveled around the sun?",
             "typed": false,
             "inputs": [],
             "slider": {

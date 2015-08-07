@@ -362,22 +362,6 @@ function bgTransition() {
 $(document).ready(function() {
   bgImg.src = "img/bg.png";
   bgImg2.src = "img/bg2.png";
-
-
-  $(function() {
-    $( "#age-slider" ).slider({
-      value:18,
-      min: 18,
-      max: 65,
-      step: 10,
-      slide: function( event, ui ) {
-        $( "#age-value" ).html(ui.value + "&ndash;" + (parseInt(ui.value) + 9));
-      }
-    });
-    var value = $("#age-slider").slider("value");
-    $("#age-value").html(value + "&ndash;" + (parseInt(value) + 9));
-  });
-
 });
 
 function showMarker(i) {
