@@ -307,6 +307,15 @@ html,body,.container { width:100%; height:100%; margin:0; padding:0; overflow: h
 
     html, body { max-width: 100%; }
 
+    .survey-container {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .survey-container:before {
+        display: none;
+    }
+
     .question-text {
         word-wrap: break-word;
         white-space: pre-wrap;
