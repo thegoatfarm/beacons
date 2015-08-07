@@ -382,7 +382,7 @@ function particles() {
           "value": 60,
           "density": {
             "enable": true,
-            "value_area": 1000
+            "value_area": 2000
           }
         },
         "color": {
@@ -404,7 +404,7 @@ function particles() {
           }
         },
         "opacity": {
-          "value": 0.7,
+          "value": 0.8,
           "random": false,
           "anim": {
             "enable": false,
