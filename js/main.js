@@ -400,6 +400,9 @@ function showMarker(i) {
 function submitData () {
   userData.timestamp = (new Date()).toString();
   $.get("https://script.google.com/macros/s/AKfycbyP8o1UkJuC5H_g1hrFpvC6B7wSoCpU6ggKGpDN79tkpYlsznc/exec", userData);
+
+  // mailchimp
+  // "https://us2.api.mailchimp.com/3.0/"
 }
 
 
