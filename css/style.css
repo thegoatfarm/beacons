@@ -284,6 +284,22 @@ html,body,.container { width:100%; height:100%; margin:0; padding:0; overflow: h
     top: -7px;
     border-left: 1px solid #bc0c11;
 }
+.survey-box .slider-container .divider:after {
+    content: "";
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    top: -0;
+    left: -8px;
+    background: rgba(0,0,0,0);
+    transition: background .25s;
+    -webkit-transition: background .25s;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.survey-box .slider-container .divider:hover:after {
+    background: rgba(0,0,0,0.18);
+}
 .survey-box .slider-value {
     position: absolute;
     bottom: -30px;

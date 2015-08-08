@@ -289,23 +289,31 @@ function displayBoxedQuestion (question) {
 
     var sliderContainer = $(".slider-container");
     var sliderWidth = 400;
+    var offset = sliderContainer.offset();
+    var lastPos = (sliderWidth - 30) / (question.slider.values.length - 1);
+    var posIndex = 0;
+    var draggableDot = $("<div class='draggable-dot'></div>");
+    var sliderValueText = $("<span class='slider-value " + font1 + "'></span>");
+    sliderValueText.text(question.slider.values[0]);
+    userData[question.slider.dataId] = question.slider.values[0];
 
     for (var i = 0; i < question.slider.values.length; i++) {
       var newDivider = $("<div class='divider'></div>");
       var pos = 15 + i * ((sliderWidth - 30) / (question.slider.values.length - 1));
       newDivider.css("left", pos + "px");
+      newDivider.attr("data-index", i);
+      newDivider.click(function(e) {
+        posIndex = parseInt($(this).attr("data-index"));
+        var snapped = posIndex * lastPos + 7;
+        draggableDot.css("left", snapped + "px");
+        sliderValueText.text(question.slider.values[posIndex]);
+        userData[question.slider.dataId] = question.slider.values[posIndex];
+      });
       sliderContainer.append(newDivider);
     }
 
-    var sliderValueText = $("<span class='slider-value " + font1 + "'></span>");
-    sliderValueText.text(question.slider.values[0]);
-    userData[question.slider.dataId] = question.slider.values[0];
     questionContainer.append(sliderValueText);
 
-    var draggableDot = $("<div class='draggable-dot'></div>");
-    var offset = sliderContainer.offset();
-    var lastPos = (sliderWidth - 30) / (question.slider.values.length - 1);
-    var posIndex = 0;
     var isDragging = false;
     draggableDot.mousedown(function() {
       isDragging = true;
