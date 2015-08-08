@@ -1,0 +1,113 @@
+{
+    "questions": [
+        {
+            "question": "Speak, friend, and enter.",
+            "typed": true,
+            "inputs": [
+                {
+                    "placeholder": "Password",
+                    "dataId": "password",
+                    "type": "password"
+                }
+            ],
+            "button": null,
+            "slider": null,
+            "nextBackground": false
+        },
+        {
+            "question": "Who goes there?",
+            "typed": true,
+            "inputs": [
+                {
+                    "placeholder": "Name",
+                    "dataId": "name",
+                    "type": "text"
+                },
+                {
+                    "placeholder": "Email",
+                    "dataId": "email",
+                    "type": "text"
+                }
+            ],
+            "button": {
+                "text": "SUBMIT >",
+                "type": "regular"
+            },
+            "slider": null,
+            "nextBackground": false
+        },
+        {
+            "question": "Thanks, :{name}. <br>Welcome to Beacons.",
+            "typed": true,
+            "inputs": null,
+            "button": null,
+            "slider": null,
+            "nextBackground": false
+        },
+        {
+            "question": "We'll need to find out a little more information about you before we can move to second base. Cool?",
+            "typed": true,
+            "inputs": null,
+            "button": {
+                "text": "COOL",
+                "type": "boxed"
+            },
+            "slider": null,
+            "nextBackground": true
+        }
+    ],
+
+    "boxedQuestions": [
+        {
+            "question": "How many times have you <br>traveled around the sun?",
+            "typed": false,
+            "inputs": [],
+            "slider": {
+                "values": ["18-24", "25-34", "35-44", "45-54", "55+"],
+                "dataId": "age"
+            },
+            "nextBackground": false
+        },
+        {
+            "question": "Where in the world are you?",
+            "typed": false,
+            "inputs": [
+                {
+                    "placeholder": "Postal code",
+                    "dataId": "location",
+                    "type": "text"
+                }
+            ],
+            "nextBackground": false
+        },
+        {
+            "question": "What is your trade?",
+            "typed": false,
+            "inputs": [
+                {
+                    "placeholder": "",
+                    "dataId": "trade",
+                    "type": "text"
+                }
+            ],
+            "nextBackground": false
+        },
+        {
+            "question": "If you had a space in downtown, what would you do with it?",
+            "typed": false,
+            "inputs": [
+                {
+                    "placeholder": "",
+                    "dataId": "opportunity",
+                    "type": "text"
+                }
+            ],
+            "nextBackground": false
+        },
+        {
+            "question": "Thanks! We'll get in touch via email with more info.",
+            "typed": false,
+            "nextBackground": false
+        }
+    ]
+}
