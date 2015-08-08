@@ -107,6 +107,14 @@ html,body,.container { width:100%; height:100%; margin:0; padding:0; overflow: h
     max-width: 20em;
     margin-bottom: 30px;
 }
+.question-text.typing span {
+    opacity: 0;
+    transition: opacity .1s;
+    -webkit-transition: opacity .1s;
+}
+.question-text.typing span.typed {
+    opacity: 1;
+}
 
 .inputs {
     width: 100%;
@@ -196,8 +204,11 @@ html,body,.container { width:100%; height:100%; margin:0; padding:0; overflow: h
     bottom: 0;
     height: 50px;
 }
-.survey-box .back-button, .survey-box .progress, .survey-box .next-button {
+
+.survey-box .back-button, .survey-box .next-button {
     width: auto !important;
+}
+.survey-box .back-button, .survey-box .progress, .survey-box .next-button {
     display: inline-block;
     height: 50px;
     line-height: 50px;

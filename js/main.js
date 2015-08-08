@@ -90,7 +90,16 @@ function displayQuestion (question) {
   var questionContainer = $(".question-container");
 
   if (question.question) {
-    questionContainer.append("<div class='question-text " + font2 + "'>" + parseQuestionString(question.question) + "</div>");
+    if (question.typed) {
+      var questionText = $("<div class='question-text typing " + font2 + "'></div>");
+      var parsedString = parseQuestionString(question.question);
+      for (var i = 0; i < parsedString.length; i++) {
+        questionText.append("<span>" + parsedString[i] + "</span>");
+      }
+      questionContainer.append(questionText);
+    } else {
+      questionContainer.append("<div class='question-text " + font2 + "'>" + parseQuestionString(question.question) + "</div>");
+    }
   }
 
   if (question.inputs && question.inputs.length > 0) {
@@ -165,6 +174,17 @@ function displayQuestion (question) {
   questionContainer.animate({
     "opacity": 1
   });
+
+  // typewriter effect
+  if (question.typed) {
+    var characters = questionContainer.find(".question-text span");
+    var i = 0;
+    var timer = setInterval(function() {
+      $(characters[i]).addClass("typed");
+      i++;
+      if (i >= characters.length) clearInterval(timer);
+    }, 30);
+  }
 }
 
 function startBoxedSurveyLoop (questions) {

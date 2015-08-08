@@ -32,7 +32,7 @@
             }
         },
         {
-            "question": "Thanks, :{name}. <br>Welcome to Beacons.",
+            "question": "Thanks, :{name}. Welcome to Beacons.",
             "typed": true
         },
         {
@@ -48,7 +48,7 @@
 
     "boxedQuestions": [
         {
-            "question": "How many times have you <br>traveled around the sun?",
+            "question": "How many times have you traveled around the sun?",
             "slider": {
                 "values": ["18-24", "25-34", "35-44", "45-54", "55+"],
                 "dataId": "age"
