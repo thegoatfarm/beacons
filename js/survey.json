@@ -5,7 +5,7 @@
             "typed": true,
             "inputs": [
                 {
-                    "placeholder": "Password",
+                    "placeholder": "What motivates you?",
                     "dataId": "password",
                     "type": "password"
                 }
@@ -75,7 +75,7 @@
             ]
         },
         {
-            "question": "If you had a space in downtown, what would you do with it?",
+            "question": "If you had a space, what would you do with it?",
             "inputs": [
                 {
                     "placeholder": "",
