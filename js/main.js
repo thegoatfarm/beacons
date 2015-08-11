@@ -435,7 +435,7 @@ function particles() {
           }
         },
         "opacity": {
-          "value": 0.8,
+          "value": 0.6,
           "random": false,
           "anim": {
             "enable": false,
