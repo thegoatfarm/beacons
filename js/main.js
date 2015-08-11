@@ -29,9 +29,7 @@ bgImg2.onload = function(){
 
 function showPage() {
     $(".backgrounds").fadeIn();
-    $(".main").fadeIn();
     $(".logo").fadeIn();
-    // $("#password").css("display", "inline-block");
     // WARNING: fails silently
     $.getJSON("js/survey.json", function(data) {
       surveyData = data;
@@ -39,13 +37,6 @@ function showPage() {
       // startBoxedSurveyLoop(surveyData.boxedQuestions);
     });
     particles();
-    // $(".computer .text").typed({
-    //         strings: ["Speak, friend, and enter."],
-    //         typeSpeed: 7,
-    //         startDelay: 300,
-    //         backDelay: 600,
-    //         callback: getPassword
-    //     });
 }
 
 function startSurveyQuestionsLoop (questions) {
@@ -402,7 +393,49 @@ function submitData () {
   $.get("https://script.google.com/macros/s/AKfycbyP8o1UkJuC5H_g1hrFpvC6B7wSoCpU6ggKGpDN79tkpYlsznc/exec", userData);
 
   // mailchimp
-  // "https://us2.api.mailchimp.com/3.0/"
+  post("//thegoatfarm.us2.list-manage.com/subscribe/post?u=fd0ca189bc1531960b59761e6&amp;id=1a85bac644", {
+    EMAIL: userData.email,
+    FNAME: userData.name,
+    MMERGE3: userData.location,
+    MMERGE4: userData.age,
+    MMERGE5: userData.trade,
+    MMERGE6: userData.opportunity,
+    MMERGE7: userData.password
+  });
+
+  $(".survey-box").html("<div class='loader'>Processing...</div>");
+
+}
+
+// http://stackoverflow.com/a/133997/4013322
+function post(path, params, method) {
+  method = method || "post"; // Set method to post by default if not specified.
+
+  // The rest of this code assumes you are not using a library.
+  // It can be made less wordy if you use one.
+  var form = document.createElement("form");
+  form.setAttribute("method", method);
+  form.setAttribute("action", path);
+  // form.setAttribute("target", "formresult");
+
+  for(var key in params) {
+    if(params.hasOwnProperty(key)) {
+      var hiddenField = document.createElement("input");
+      hiddenField.setAttribute("type", "hidden");
+      hiddenField.setAttribute("name", key);
+      hiddenField.setAttribute("value", params[key]);
+
+      form.appendChild(hiddenField);
+     }
+  }
+
+  // var formWindow = window.open("", 'formresult', 'scrollbars=no,menubar=no,height=600,width=800,resizable=yes,toolbar=no,status=no');
+
+  document.body.appendChild(form);
+  form.submit();
+  // $(formWindow).ready(function() {
+  //   // formWindow.close();
+  // });
 }
 
 
