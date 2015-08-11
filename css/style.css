@@ -327,11 +327,22 @@ html,body,.container { width:100%; height:100%; margin:0; padding:0; overflow: h
 }
 .survey-box .slider-value {
     position: absolute;
-    bottom: -30px;
+    bottom: -25px;
     left: 0;
     right: 0;
     font-weight: lighter;
     font-size: 22px;
+}
+.survey-box .slider-value:after {
+    content: "drag the red dot";
+    display: block;
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 0;
+    font-weight: lighter;
+    font-size: 14px;
+    color: #555;
 }
 .survey-box .slider-container .draggable-dot {
     position: absolute;
