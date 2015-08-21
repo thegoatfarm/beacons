@@ -50,26 +50,35 @@ function startSurveyQuestionsLoop (questions) {
   displayQuestion(questions[questionIndex]);
 
   $(window).on("nextQuestion", function(e) {
-    // save user data
+
+    // check inputs & save user data
+    var inputsFilled = true;
     questionContainer.find("input").each(function() {
-      userData[$(this).attr("id")] = $(this).val();
-    });
-
-    // fade out and remove old content
-    questionContainer.animate({
-      "opacity": 0
-    }, function() {
-
-      questionContainer.html("");
-      questionIndex++;
-      if (questionIndex < questions.length) {
-        displayQuestion(questions[questionIndex]);
-      } else  {
-        $(window).off("nextQuestion");
-        startBoxedSurveyLoop(surveyData.boxedQuestions);
+      if (validateInput($(this).val(), $(this).attr("type"))) {
+        userData[$(this).attr("id")] = $(this).val();
+      } else {
+        $(this).parent().addClass("error");
+        inputsFilled = false;
       }
-      
     });
+
+    if (inputsFilled) {
+      // fade out and remove old content
+      questionContainer.animate({
+        "opacity": 0
+      }, function() {
+
+        questionContainer.html("");
+        questionIndex++;
+        if (questionIndex < questions.length) {
+          displayQuestion(questions[questionIndex]);
+        } else  {
+          $(window).off("nextQuestion");
+          startBoxedSurveyLoop(surveyData.boxedQuestions);
+        }
+        
+      });
+    }
 
   });
 
@@ -114,10 +123,14 @@ function displayQuestion (question) {
     inputs.each(function(i) {
         $(this).keypress(function(e) {
           if (e.which == 13) {
-            if (i < inputs.length - 1) {
-              $(inputs[i + 1]).find("input").focus();
+            if (validateInput($(this).find("input").val(), $(this).find("input").attr("type"))) {
+              if (i < inputs.length - 1) {
+                $(inputs[i + 1]).find("input").focus();
+              } else {
+                $(this).trigger("nextQuestion");
+              }
             } else {
-              $(this).trigger("nextQuestion");
+              $(this).addClass("error");
             }
           }
         })
@@ -178,6 +191,17 @@ function displayQuestion (question) {
   }
 }
 
+function validateInput (text, type) {
+  if (!text || String(text).replace(" ", "").length === 0) return false;
+  if (type && type === "email") {
+    // validate email
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    if (!re.test(text)) return false;
+  }
+
+  return true;
+}
+
 function startBoxedSurveyLoop (questions) {
 
   var box = $("<div class='survey-box'><div class='question-container'></div></div>");
@@ -205,31 +229,39 @@ function startBoxedSurveyLoop (questions) {
   showMarker(1);
 
   $(window).on("nextQuestion", function(e) {
-    // save user data
+    // check inputs & save user data
+    var inputsFilled = true;
     questionContainer.find("input").each(function() {
-      userData[$(this).attr("id")] = $(this).val();
-    });
-
-    // fade out and remove old content
-    questionContainer.animate({
-      "opacity": 0
-    }, function() {
-
-      questionContainer.html("");
-      questionIndex++;
-      if (questionIndex >= questions.length - 1) {
-        displayBoxedQuestion(questions[questionIndex]);
-        showMarker(questionIndex + 1);
-        $(window).off("nextQuestion");
-        $(window).off("prevQuestion");
-        navigation.fadeOut();
-        submitData();
-      } else if (questionIndex < questions.length) {
-        displayBoxedQuestion(questions[questionIndex]);
-        showMarker(questionIndex + 1);
+      if (validateInput($(this).val(), $(this).attr("type"))) {
+        userData[$(this).attr("id")] = $(this).val();
+      } else {
+        $(this).parent().addClass("error");
+        inputsFilled = false;
       }
-      
     });
+
+    if (inputsFilled) {
+      // fade out and remove old content
+      questionContainer.animate({
+        "opacity": 0
+      }, function() {
+
+        questionContainer.html("");
+        questionIndex++;
+        if (questionIndex >= questions.length - 1) {
+          displayBoxedQuestion(questions[questionIndex]);
+          showMarker(questionIndex + 1);
+          $(window).off("nextQuestion");
+          $(window).off("prevQuestion");
+          navigation.fadeOut();
+          submitData();
+        } else if (questionIndex < questions.length) {
+          displayBoxedQuestion(questions[questionIndex]);
+          showMarker(questionIndex + 1);
+        }
+        
+      });
+    }
 
   });
 

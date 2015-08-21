@@ -23,7 +23,7 @@
                 {
                     "placeholder": "Email",
                     "dataId": "email",
-                    "type": "text"
+                    "type": "email"
                 }
             ],
             "button": {
