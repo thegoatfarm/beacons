@@ -36,10 +36,10 @@
             "typed": true
         },
         {
-            "question": "We'll need to find out a little more information about you before we can move to second base. Cool?",
+            "question": "Are you human?",
             "typed": true,
             "button": {
-                "text": "COOL",
+                "text": "YES",
                 "type": "boxed"
             },
             "nextBackground": true
@@ -48,7 +48,7 @@
 
     "boxedQuestions": [
         {
-            "question": "How many times have you traveled around the sun?",
+            "question": "For how long?",
             "slider": {
                 "values": ["18-24", "25-34", "35-44", "45-54", "55+"],
                 "dataId": "age"
@@ -75,7 +75,7 @@
             ]
         },
         {
-            "question": "If you had a space, what would you do with it?",
+            "question": "If you had a space in South Downtown, what would you do with it?",
             "inputs": [
                 {
                     "placeholder": "",
