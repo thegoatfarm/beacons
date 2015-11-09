@@ -205,7 +205,13 @@ function validateInput (text, type) {
 function startBoxedSurveyLoop (questions) {
 
   var box = $("<div class='survey-box'><div class='question-container'></div></div>");
-  var navigation = $('<div class="navigation ' + font1 + '"><span class="back-button">&lt;</span><div class="progress"><span id="m1" class="marker"></span><span id="m2" class="marker"></span><span id="m3" class="marker"></span><span id="m4" class="marker"></span><span id="m5" class="marker"></span></div><span class="next-button">NEXT &gt;</span></div>');
+  var navigationHTML = '<div class="navigation ' + font1 + '"><span class="back-button">&lt;</span><span class="next-button">NEXT &gt;</span>';
+  navigationHTML += '<div class="progress">';
+  for (var i = 0; i < questions.length; i++) {
+    navigationHTML += '<span id="m' + (i+1) + '" class="marker"></span>';
+  }
+  navigationHTML += '</div></div>';
+  var navigation = $(navigationHTML);
   box.append(navigation);
   box.attr("opacity", 0);
 
